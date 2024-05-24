@@ -1,11 +1,14 @@
-export default function MovieList({ data }) {
+export default function MovieList() {
   return (
     <ul>
-      {data.map((movie) => (
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      {/* {data.map((movie) => (
         <li key={movie.id}>
           <p>{movie.title}</p>
         </li>
-      ))}
+      ))} */}
     </ul>
   );
 }

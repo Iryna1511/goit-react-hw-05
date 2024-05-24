@@ -1,1 +1,3 @@
-export default function MovieCast() {}
+export default function MovieCast() {
+  return <p>Cast</p>;
+}

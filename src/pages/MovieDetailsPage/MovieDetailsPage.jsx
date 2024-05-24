@@ -1,20 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
-export default function MovieDetailsPage({ data }) {
+export default function MovieDetailsPage() {
   //   const { movieId } = useParams();
   return (
     <div>
       <button>Go back</button>
       <section>
-        <img src={data.img} alt={data.dscr} />
+        {/* <img src={data.img} alt={data.dscr} />
         <div>
-          <h3>{data.title}</h3>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias
-            rerum laboriosam accusamus facilis deleniti quis eligendi dolores
-            vel doloribus corrupti!
-          </p>
-        </div>
+          <h3>{data.title}</h3> */}
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias
+          rerum laboriosam accusamus facilis deleniti quis eligendi dolores vel
+          doloribus corrupti!
+        </p>
+        {/* </div> */}
       </section>
       <div>
         <h4>Additional information</h4>
@@ -25,6 +25,7 @@ export default function MovieDetailsPage({ data }) {
           <li>
             <Link to="reviews">Reviews</Link>
           </li>
+          <Outlet />
         </ul>
       </div>
     </div>

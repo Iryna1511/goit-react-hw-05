@@ -1,1 +1,3 @@
-export default function MovieReviews() {}
+export default function MovieReviews() {
+  return <p>Reviews</p>;
+}
