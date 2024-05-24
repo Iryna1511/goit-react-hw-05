@@ -1,0 +1,19 @@
+.header {
+  padding: 20px 60px;
+  background-color: rgba(144, 102, 188, 0.2);
+}
+.list {
+  display: flex;
+  gap: 40px;
+}
+.link {
+  font-size: 24px;
+  font-weight: 500;
+}
+.limk.active {
+  color: rgb(189, 11, 106);
+}
+
+li .link:hover {
+  color: rgb(138, 13, 255);
+}
