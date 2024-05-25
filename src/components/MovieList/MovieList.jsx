@@ -1,14 +1,14 @@
-export default function MovieList() {
+import { Link } from "react-router-dom";
+import css from "./MovieList.module.css";
+
+export default function MovieList({ data }) {
   return (
     <ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      {/* {data.map((movie) => (
-        <li key={movie.id}>
-          <p>{movie.title}</p>
+      {data.map((movie) => (
+        <li className={css.item} key={movie.id}>
+          <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
         </li>
-      ))} */}
+      ))}
     </ul>
   );
 }

@@ -7,10 +7,10 @@
   gap: 40px;
 }
 .link {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 500;
 }
-.limk.active {
+.link.active {
   color: rgb(189, 11, 106);
 }
 

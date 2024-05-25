@@ -3,12 +3,10 @@ import clsx from "clsx";
 import css from "./Navigation.module.css";
 // import HomePage from "../../pages/HomePage/HomePage";
 // import MoviesPage from "../../pages/MoviesPage/MoviesPage";
-
+const buildLinkClass = ({ isActive }) => {
+  return clsx(css.link, isActive && css.active);
+};
 export default function Navigation() {
-  const buildLinkClass = ({ isActive }) => {
-    return clsx(css.link, isActive && css.active);
-  };
-
   return (
     <header className={css.header}>
       <nav>
