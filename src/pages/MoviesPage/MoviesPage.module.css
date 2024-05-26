@@ -3,6 +3,7 @@
 }
 .form {
   display: flex;
+  margin-bottom: 30px;
 }
 .input {
   width: 220px;
@@ -17,4 +18,8 @@
   font-size: 18px;
   background-color: blueviolet;
   color: rgb(245, 236, 245);
+}
+.btn:hover,
+.btn:active {
+  background-color: rgb(189, 11, 106);
 }
