@@ -31,6 +31,15 @@ export const getMovieDetails = async (id) => {
   const response = await axios.get(`/movie/${id}`, options);
   return response.data;
 };
+export const getMovieCast = async (id) => {
+  const response = await axios.get(`/movie/${id}/credits`, options);
+  return response.data.cast;
+};
+export const getMovieReviews = async (id) => {
+  const response = await axios.get(`/movie/${id}/reviews`, options);
+  return response.data.results;
+};
+
 // const options = {
 //   method: "GET",
 //   headers: {

@@ -17,7 +17,6 @@ export default function MovieDetailsPage() {
         setLoading(true);
         const data = await getMovieDetails(movieId);
         setMovieDetails(data);
-        console.log(data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -43,7 +42,9 @@ export default function MovieDetailsPage() {
           />
           <div className={css.details}>
             <h3 className={css.title}>{movieDetails.title}</h3>
-            <p className={css.slug}>{movieDetails.tagline}</p>
+            {movieDetails.tagline && (
+              <p className={css.slug}>{movieDetails.tagline}</p>
+            )}
             <ul className={css.descr}>
               <li>
                 <h4 className={css.subtitle}>Year</h4>
@@ -66,7 +67,7 @@ export default function MovieDetailsPage() {
         </section>
       )}
       <div>
-        <h4>Additional information</h4>
+        <h3>Additional information</h3>
         <ul>
           <li>
             <Link to="cast">Cast</Link>
@@ -75,7 +76,7 @@ export default function MovieDetailsPage() {
             <Link to="reviews">Reviews</Link>
           </li>
         </ul>
-        <Suspense>
+        <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
       </div>
