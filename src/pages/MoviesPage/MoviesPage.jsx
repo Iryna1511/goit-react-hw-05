@@ -1,31 +1,45 @@
 import { Form, Field, Formik } from "formik";
 import css from "./MoviesPage.module.css";
 import { getSearchMovies } from "../../api";
-import { useEffect, useState } from "react";
-import MovieList from "../../components/MovieList/MovieList";
+import { useEffect, useState, lazy } from "react";
+import { useSearchParams } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
+const MovieList = lazy(() => import("../../components/MovieList/MovieList"));
 
 export default function MoviesPage() {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [searchParms, setSearchParams] = useSearchParams();
+  //   const movieFilter = searchParms.get("query") ?? "";
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
+        setLoading(true);
         const searchedMovies = await getSearchMovies(searchQuery);
         setSearchedMovies(searchedMovies);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchMovies();
   }, [searchQuery]);
 
+  const handleSearch = (values, actions) => {
+    searchParms.set("query", values.query);
+    setSearchParams(searchParms);
+
+    setSearchQuery(values.query);
+    actions.resetForm();
+  };
+
   return (
     <section className={css.container}>
-      <Formik
-        initialValues={{ query: "" }}
-        onSubmit={(values) => setSearchQuery(values.query)}
-      >
+      <Formik initialValues={{ query: "" }} onSubmit={handleSearch}>
         <Form className={css.form}>
           <Field
             className={css.input}
@@ -41,6 +55,7 @@ export default function MoviesPage() {
         </Form>
       </Formik>
       <MovieList data={searchedMovies} />
+      {loading && <Loader />}
     </section>
   );
 }

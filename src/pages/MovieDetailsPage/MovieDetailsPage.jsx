@@ -1,43 +1,70 @@
-import { Link, Outlet, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, Outlet, useParams, useLocation } from "react-router-dom";
+import { useState, useEffect, Suspense, useRef } from "react";
 import { getMovieDetails } from "../../api";
+import Loader from "../../components/Loader/Loader";
+import css from "./MovieDetailsPage.module.css";
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
-
   const [movieDetails, setMovieDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const backLinkRef = useRef(location.state ?? "/movies");
 
   useEffect(() => {
-    // getMovieDetails(movieId)
-    //   .then((data) => setMovieDetails(data))
-    //   .catch((e) => console.log(e));
     const openDetails = async () => {
       try {
+        setLoading(true);
         const data = await getMovieDetails(movieId);
-        console.log(data);
         setMovieDetails(data);
+        console.log(data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     openDetails();
   }, [movieId]);
-
-  console.log(movieDetails);
-
   return (
-    <div>
-      <button>Go back</button>
-      <section>
-        {/* <img src={movieDetails.poster_path} alt={`poster ${movieDetails.title}`} /> */}
-        <div>
-          <h3>{movieDetails.title}</h3>
-          <h4>Year</h4>
-          <p>{movieDetails.release_date}</p>
-          <h4>Overview</h4>
-          <p>{movieDetails.overview}</p>
-        </div>
-      </section>
+    <div className={css.container}>
+      <p className={css.backLink}>
+        <Link to={backLinkRef.current}>Go back</Link>
+      </p>
+
+      {loading && <Loader />}
+      {movieDetails !== null && (
+        <section className={css.section}>
+          <img
+            className={css.img}
+            src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}
+  `}
+            alt={`poster ${movieDetails.title}`}
+          />
+          <div className={css.details}>
+            <h3 className={css.title}>{movieDetails.title}</h3>
+            <p className={css.slug}>{movieDetails.tagline}</p>
+            <ul className={css.descr}>
+              <li>
+                <h4 className={css.subtitle}>Year</h4>
+                <p className={css.text}>{movieDetails.release_date}</p>
+              </li>
+              <li>
+                <h4 className={css.subtitle}>Overview</h4>
+                <p className={css.text}>{movieDetails.overview}</p>
+              </li>
+              <li>
+                <h4 className={css.subtitle}>Genres</h4>
+                <ul className={css.genres}>
+                  {movieDetails.genres.map((genre) => (
+                    <li key={genre.id}>{genre.name}</li>
+                  ))}
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
       <div>
         <h4>Additional information</h4>
         <ul>
@@ -48,7 +75,9 @@ export default function MovieDetailsPage() {
             <Link to="reviews">Reviews</Link>
           </li>
         </ul>
-        <Outlet />
+        <Suspense>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );
