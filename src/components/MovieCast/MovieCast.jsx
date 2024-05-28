@@ -35,7 +35,7 @@ export default function MovieCast() {
               alt={list.name}
             />
             <h4 className={css.name}>{list.name}</h4>
-            <p className={css.descr}>as {list.character}</p>
+            {list.character && <p className={css.descr}>as {list.character}</p>}
           </li>
         ))}
     </ul>

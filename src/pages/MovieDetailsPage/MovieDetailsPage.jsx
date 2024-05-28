@@ -1,6 +1,8 @@
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
-import { useState, useEffect, Suspense, useRef } from "react";
+import { useState, useEffect, Suspense, useRef, lazy } from "react";
 import { getMovieDetails } from "../../api";
+const MovieInfo = lazy(() => import("../../components/MovieInfo/MovieInfo"));
+// import MovieInfo from "../../components/MovieInfo/MovieInfo";
 import Loader from "../../components/Loader/Loader";
 import css from "./MovieDetailsPage.module.css";
 
@@ -25,6 +27,8 @@ export default function MovieDetailsPage() {
     };
     openDetails();
   }, [movieId]);
+
+  console.log(movieDetails);
   return (
     <div className={css.container}>
       <p className={css.backLink}>
@@ -32,54 +36,21 @@ export default function MovieDetailsPage() {
       </p>
 
       {loading && <Loader />}
-      {movieDetails !== null && (
-        <section className={css.section}>
-          <img
-            className={css.img}
-            src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}
-  `}
-            alt={`poster ${movieDetails.title}`}
-          />
-          <div className={css.details}>
-            <h3 className={css.title}>{movieDetails.title}</h3>
-            {movieDetails.tagline && (
-              <p className={css.slug}>{movieDetails.tagline}</p>
-            )}
-            <ul className={css.descr}>
-              <li>
-                <h4 className={css.subtitle}>Year</h4>
-                <p className={css.text}>{movieDetails.release_date}</p>
-              </li>
-              <li>
-                <h4 className={css.subtitle}>Overview</h4>
-                <p className={css.text}>{movieDetails.overview}</p>
-              </li>
-              <li>
-                <h4 className={css.subtitle}>Genres</h4>
-                <ul className={css.genres}>
-                  {movieDetails.genres.map((genre) => (
-                    <li key={genre.id}>{genre.name}</li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </section>
-      )}
+      {movieDetails && <MovieInfo movieDetails={movieDetails} />}
       <div>
-        <h3>Additional information</h3>
+        <h3 className={css.info}>Additional information</h3>
         <ul>
-          <li>
+          <li className={css.infolink}>
             <Link to="cast">Cast</Link>
           </li>
-          <li>
+          <li className={css.infolink}>
             <Link to="reviews">Reviews</Link>
           </li>
         </ul>
-        <Suspense fallback={<Loader />}>
-          <Outlet />
-        </Suspense>
       </div>
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 }

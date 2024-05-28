@@ -18,7 +18,9 @@ export default function MoviesPage() {
     const fetchMovies = async () => {
       try {
         setLoading(true);
-        const searchedMovies = await getSearchMovies(searchQuery);
+        const searchedMovies = await getSearchMovies(
+          searchParms.get("query") || searchQuery
+        );
         setSearchedMovies(searchedMovies);
       } catch (error) {
         console.log(error);

@@ -29,7 +29,7 @@ export default function MovieReviews() {
           </li>
         ))
       ) : (
-        <p>Sorry, there are no reviews yet.</p>
+        <p>We don`t have any reviews for this movie.</p>
       )}
     </ul>
   );
