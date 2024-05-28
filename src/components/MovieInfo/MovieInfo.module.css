@@ -42,9 +42,25 @@
   content: "|";
   padding-left: 8px;
   padding-right: 8px;
-  color: blueviolet;
+  color: rgb(138, 43, 226);
   font-size: 26px;
 }
 .img {
   width: 450px;
+}
+.noposter {
+  padding-top: 40px;
+  min-width: 450px;
+  height: 675px;
+  text-align: center;
+  background-color: rgb(65, 44, 84);
+  background-image: linear-gradient(
+    to bottom,
+    rgb(65, 44, 84) 20%,
+    rgb(111, 34, 182) 75%,
+    rgb(250, 235, 215) 185%
+  );
+
+  color: antiquewhite;
+  font-size: 30px;
 }

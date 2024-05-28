@@ -5,12 +5,16 @@ export default function MovieInfo({ movieDetails }) {
   const genres = movieDetails.genres;
   return (
     <section className={css.section}>
-      <img
-        className={css.img}
-        src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}
+      {movieDetails.poster_path ? (
+        <img
+          className={css.img}
+          src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}
   `}
-        alt={`poster ${movieDetails.title}`}
-      />
+          alt={`poster ${movieDetails.title}`}
+        />
+      ) : (
+        <div className={css.noposter}>{movieDetails.title}</div>
+      )}
       <div className={css.details}>
         <h2 className={css.title}>{movieDetails.title}</h2>
         {movieDetails.tagline && (
