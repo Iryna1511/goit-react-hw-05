@@ -1,7 +1,6 @@
 import css from "./MovieInfo.module.css";
 
 export default function MovieInfo({ movieDetails }) {
-  console.log(movieDetails);
   const genres = movieDetails.genres;
   return (
     <section className={css.section}>
